@@ -4,7 +4,7 @@ Modular synthesizer in vanilla ES6 using WebAudioAPI and browser imports.
 Wraps several WebAudioAPI objects with modular friendly Nodes.
 
 
-##A list of TODOs:
+## A list of TODOs:
 - Add touch/mouse control
 - Add WebMidiAPI compatibility
 - Change canvas to WebGL
