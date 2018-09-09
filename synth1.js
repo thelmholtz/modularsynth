@@ -4,9 +4,11 @@ import { NOTES, A_TUNING, getNoteFrequency } from './utils.js'
 import { NODE_DEFAULTS } from './defaults.js'
 
 export class Synth{
-    constructor(audioInstance, outputs){
+    constructor(audioInstance, outputs, options = NODE_DEFAULTS){
         this.audioInstance = audioInstance
         this.noteBuffer = []
+        this.options = options
+
         this.master = new BasicAmp(audioInstance, outputs)
 
         document.addEventListener('keydown', (e) => { this.onKeyDown(e) })
@@ -20,7 +22,7 @@ export class Synth{
 
             let alreadyPlaying = this.noteBuffer.filter((n) => n.key === notePressed.key)[0]?true:false
             if(!alreadyPlaying){
-                let freq = getNoteFrequency(notePressed, A_TUNING)
+                let freq = getNoteFrequency(notePressed, A_TUNING, this.options.octave)
 
                 let nodeOptions = NODE_DEFAULTS
                 nodeOptions.frequency = freq
@@ -30,6 +32,12 @@ export class Synth{
 
                 this.noteBuffer.push(note)
             }
+        } else if (e.which >= 49 && e.which <= 55){
+            this.options.octave = e.which - 49
+        } else if (e.which == 48) {
+            this.options.filter.cutoff *= 2
+        } else if (e.which === 57) {
+            this.options.filter.cutoff *= 0.5
         }
     }
 
@@ -45,7 +53,6 @@ export class Synth{
 
         }
     }
-
 }
 
 

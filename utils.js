@@ -16,6 +16,10 @@ export const NOTES = [
 
 export const A_TUNING = 440
 
+export const MIN_FREQ = 20
+
+export const MAX_FREQ = 20000
+
 export function getNoteFrequency(note, tuning, octave=4){
     octave = octave-4       //Translates between musician standard octaves and octave's as a frequency shift from central A
     return Math.pow(Math.pow(2, 1/12), note.offset) * Math.pow(2, octave) * A_TUNING
