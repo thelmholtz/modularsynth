@@ -1,9 +1,9 @@
-import { NODE_DEFAULTS } from './defaults.js'
+import { NODE_DEFAULTS } from '../../defaults.js'
 
 export const UNITY = 1
 export const SILENCE = 0
 
-export class BasicAmp{
+export class Amp{
     constructor(audioInstance, outputs, options=NODE_DEFAULTS){
         this.audioInstance = audioInstance
         this.outputs = outputs

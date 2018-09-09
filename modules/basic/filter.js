@@ -1,5 +1,5 @@
-import { MAX_FREQ } from './utils.js'
-import { NODE_DEFAULTS } from './defaults.js'
+import { MAX_FREQ } from '../../utils.js'
+import { NODE_DEFAULTS } from '../../defaults.js'
 
 export class Filter{
 

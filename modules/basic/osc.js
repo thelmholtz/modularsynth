@@ -1,6 +1,6 @@
-import { NODE_DEFAULTS } from './defaults.js'
+import { NODE_DEFAULTS } from '../../defaults.js'
 
-export class BasicOsc{
+export class Osc{
     constructor(audioInstance, outputs, options=NODE_DEFAULTS){
         this.audioInstance = audioInstance
         this.options = options

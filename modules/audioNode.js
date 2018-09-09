@@ -1,18 +1,18 @@
-import { NODE_DEFAULTS } from './defaults.js'
-import { BasicOsc } from './basicoscillator.js'
-import { BasicAmp } from './basicamp.js'
-import { Filter } from './filter.js'
+import { NODE_DEFAULTS } from '../defaults.js'
+import { Osc } from './basic/osc.js'
+import { Amp } from './basic/amp.js'
+import { Filter } from './basic/filter.js'
 
 
-export class BasicNode{
+export class AudioNode{
     constructor(audioInstance, outputs, options=NODE_DEFAULTS){
         this.options = options
         this.outputs = outputs
         this.audioInstance = audioInstance
 
         this.filter = new Filter(audioInstance, this.outputs, options)
-        this.amp = new BasicAmp(audioInstance, [this.filter.input], options)
-        this.osc = new BasicOsc(audioInstance, [this.amp.input], options)
+        this.amp = new Amp(audioInstance, [this.filter.input], options)
+        this.osc = new Osc(audioInstance, [this.amp.input], options)
 
         this.input = this.osc.input
     }

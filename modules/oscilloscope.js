@@ -1,4 +1,4 @@
-import { NODE_DEFAULTS } from './defaults.js'
+import { NODE_DEFAULTS } from '../defaults.js'
 
 export class Oscilloscope{
     constructor(canvas, audioInstance, outputs, options = NODE_DEFAULTS){
