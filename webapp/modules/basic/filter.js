@@ -51,9 +51,8 @@ export class Filter {
       this.audioInstance.currentTime + this.options.filter.envelope.release
     )
     setTimeout(() => {
-        this.outputs.forEach(
-          (o) => this.filter.disconnect(o)
-        )}, this.options.filter.envelope.release * 1000)
+      this.outputs.forEach(o => this.filter.disconnect(o))
+    }, this.options.filter.envelope.release * 1000)
   }
 
   /**

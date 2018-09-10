@@ -53,7 +53,6 @@ export class Oscilloscope {
     this.videoInstance.beginPath()
 
     for (let i = 0; i < this.analyser.fftSize; i++) {
-
       //Not sure how this magic works, but it did center the signal vertically.
       let y = ((1 + this.dataArray[i] / 128.0) * height) / 4
 

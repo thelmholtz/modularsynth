@@ -61,18 +61,14 @@ export class Synth {
 
         let note = {
           key: notePressed.key,
-          osc: new Voice(
-            this.audioInstance,
-            [this.master.input],
-            nodeOptions
-          )
+          osc: new Voice(this.audioInstance, [this.master.input], nodeOptions)
         }
         note.osc.play()
 
         this.noteBuffer.push(note)
       }
 
-    //Otherwise some control events might have happend
+      //Otherwise some control events might have happend
     } else if (e.which >= 49 && e.which <= 56) {
       //Keys 1 through 8 control the octave
       this.options.octave = e.which - 49
@@ -81,11 +77,12 @@ export class Synth {
       if (this.options.filter.cutoff < MAX_FREQ) this.options.filter.cutoff *= 2
     } else if (e.which === 57) {
       //Key 10 opens the filter
-      if (this.options.filter.cutoff > MIN_FREQ) this.options.filter.cutoff *= 0.5
-    } else if (e.which === 189){
-        this.options.filter.envelope.amount -= 0.005
-    } else if (e.which === 187){
-        this.options.filter.envelope.amount += 0.005
+      if (this.options.filter.cutoff > MIN_FREQ)
+        this.options.filter.cutoff *= 0.5
+    } else if (e.which === 189) {
+      this.options.filter.envelope.amount -= 0.005
+    } else if (e.which === 187) {
+      this.options.filter.envelope.amount += 0.005
     }
   }
 

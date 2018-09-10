@@ -1,0 +1,23 @@
+{
+  "name": "modularsynth",
+  "version": "0.0.1",
+  "description": "Analoguesque synthesizer modules and implementation",
+  "main": "liteserver.js",
+  "scripts": {
+    "test": "node liteserver.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thelmholtz/modularsynth.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/thelmholtz/modularsynth/issues"
+  },
+  "homepage": "https://github.com/thelmholtz/modularsynth#readme",
+  "dependencies": {
+    "connect": "^3.6.6",
+    "serve-static": "^1.13.2"
+  }
+}
