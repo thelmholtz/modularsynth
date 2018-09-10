@@ -3,12 +3,13 @@ import { Synth } from './synth.js'
 import { Oscilloscope } from './modules/oscilloscope.js'
 
 let audioContext = window.AudioContext || window.webkitAudioContext
-let audioInstance = new audioContext();
+let audioInstance = new audioContext()
 
 let canvas = document.getElementById('synth_container')
 
-let oscilloscope = new Oscilloscope(canvas, audioInstance, [audioInstance.destination])
+let oscilloscope = new Oscilloscope(canvas, audioInstance, [
+  audioInstance.destination
+])
+
 requestAnimationFrame(oscilloscope.draw.bind(oscilloscope))
 let synth = new Synth(audioInstance, [oscilloscope.input])
-
-
