@@ -24,7 +24,7 @@ export class Amp {
       this.audioInstance.currentTime + this.options.envelope.attack
     )
     this.amp.gain.linearRampToValueAtTime(
-      thisi.options.envelope.sustain * UNITY,
+      this.options.envelope.sustain * UNITY,
       this.audioInstance.currentTime + this.options.envelope.decay
     )
 

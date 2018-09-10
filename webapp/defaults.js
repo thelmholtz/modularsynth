@@ -1,3 +1,5 @@
+// Most defaults are overriden by user input.
+
 export const NODE_DEFAULTS = {
   gain: 1,
   envelope: {
@@ -13,7 +15,7 @@ export const NODE_DEFAULTS = {
     cutoff: 40,
     resonance: 0.3,
     envelope: {
-      amount: 0,
+      amount: 0.005,
       attack: 33 / 1000,
       decay: 100 / 1000,
       sustain: 0.09,
