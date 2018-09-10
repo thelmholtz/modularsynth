@@ -1,14 +1,30 @@
-import { AudioNode } from './modules/audioNode.js'
+import { Voice } from './modules/voice.js'
 import { Amp } from './modules/basic/amp.js'
 import {
   NOTES,
   A_TUNING,
-  getNoteFrequency,
   MAX_FREQ,
-  MIN_FREQ
+  MIN_FREQ,
+  getNoteFrequency
 } from './utils.js'
 import { NODE_DEFAULTS } from './defaults.js'
 
+/**
+ * Basic substractive synthesizer node.
+ *
+ * Captures keyboard events and triggers `Voice`s from them.
+ *
+ * @param audioInstance an AudioContext instance
+ * @param outputs an array of WebAudioAPI `AudioNode`s to connect as output
+ * @param options optional attributes
+ *
+ * @note keyboard layout is currently fixed. String 'zsxdcvgbhnjm,' maps to
+ *       a C to C piano octave. '1-8' switches the current octave. '9' closes
+ *       and '0' opens the filter. '-' lowers the filter envelope amount and
+ *       '+' increases it.
+ *
+ * @dev event listeners should be detached from the global document
+ */
 export class Synth {
   constructor(audioInstance, outputs, options = NODE_DEFAULTS) {
     this.audioInstance = audioInstance
@@ -27,8 +43,10 @@ export class Synth {
   }
 
   onKeyDown(e) {
+    //Checks whether the event is mapped to a NOTE in `NOTES`
     let notePressed = NOTES.filter(n => n.key === e.which)[0]
-
+    //If it was pressed, and is not already in the live note buffer,
+    //it triggers it.
     if (notePressed) {
       let alreadyPlaying = this.noteBuffer.filter(
         n => n.key === notePressed.key
@@ -43,7 +61,7 @@ export class Synth {
 
         let note = {
           key: notePressed.key,
-          osc: new AudioNode(
+          osc: new Voice(
             this.audioInstance,
             [this.master.input],
             nodeOptions
@@ -53,6 +71,8 @@ export class Synth {
 
         this.noteBuffer.push(note)
       }
+
+    //Otherwise some control events might have happend
     } else if (e.which >= 49 && e.which <= 56) {
       //Keys 1 through 8 control the octave
       this.options.octave = e.which - 49
@@ -71,7 +91,7 @@ export class Synth {
 
   onKeyUp(e) {
     let noteReleased = NOTES.filter(n => n.key === e.which)[0]
-
+    //If a note was released, and was playing, it kills it and removes it from the buffer
     if (noteReleased) {
       let liveNote = this.noteBuffer.filter(n => n.key === noteReleased.key)[0]
       if (liveNote) {

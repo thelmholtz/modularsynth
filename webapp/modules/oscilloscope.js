@@ -1,5 +1,13 @@
 import { NODE_DEFAULTS } from '../defaults.js'
 
+/**
+ * Experimental oscilloscope made with an analyser drawing a canvas
+ *
+ * @param `canvas` a canvas DOM element
+ * @param `audioInstance` an AudioContext instance
+ * @param `outputs` an array of `AudioNode`s to connect the output of this node
+ * @param `options` optional configuration
+ */
 export class Oscilloscope {
   constructor(canvas, audioInstance, outputs, options = NODE_DEFAULTS) {
     this.audioInstance = audioInstance
@@ -18,11 +26,18 @@ export class Oscilloscope {
     this.input = this.analyser
   }
 
+  /*
+   * Draws the input signal
+   *
+   * @dev should be fixed to make it possible to run as a component
+   *      instead of taking over the whole window.
+   * @dev unnecesary bind call is too slow and should be removed
+   */
   draw() {
     const width = (this.canvas.width = window.innerWidth)
     const height = (this.canvas.height = window.innerHeight)
 
-    //TODO bind should be avoided in animation
+    //TODO bind should be removed
     requestAnimationFrame(this.draw.bind(this))
 
     this.analyser.getByteTimeDomainData(this.dataArray)
@@ -38,6 +53,8 @@ export class Oscilloscope {
     this.videoInstance.beginPath()
 
     for (let i = 0; i < this.analyser.fftSize; i++) {
+
+      //Not sure how this magic works, but it did center the signal vertically.
       let y = ((1 + this.dataArray[i] / 128.0) * height) / 4
 
       if (i === 0) this.videoInstance.moveTo(x, y)

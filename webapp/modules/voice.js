@@ -2,8 +2,15 @@ import { NODE_DEFAULTS } from '../defaults.js'
 import { Osc } from './basic/osc.js'
 import { Amp } from './basic/amp.js'
 import { Filter } from './basic/filter.js'
-
-export class AudioNode {
+/**
+ * A mono voice for a substractive synth. Each voice triggers it's own
+ * sub oscillator and filter.
+ *
+ * @param `audioInstance` an AudioContext instance
+ * @param outputs an array of `AudioNode`s to use connect this node output
+ * @param options optional voice settings
+ */
+export class Voice {
   constructor(audioInstance, outputs, options = NODE_DEFAULTS) {
     this.options = options
     this.outputs = outputs
@@ -19,6 +26,10 @@ export class AudioNode {
     this.input = this.osc.input
   }
 
+  /**
+   * Plays voice immediatly
+   * @params `freq` optional oscillator frequency
+   */
   play(freq) {
     if (freq) this.osc.osc.frequency.value = freq
     this.osc.play()
@@ -26,12 +37,18 @@ export class AudioNode {
     this.filter.play()
   }
 
+  /**
+   * Stops voice but keeps connections
+   */
   stop() {
     this.amp.stop()
     this.osc.stop()
     this.filter.stop()
   }
 
+  /**
+   * Stops voice and kills connections
+   */
   kill() {
     this.amp.kill()
     this.osc.kill()

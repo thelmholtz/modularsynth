@@ -1,5 +1,12 @@
 import { NODE_DEFAULTS } from '../../defaults.js'
 
+/**
+ * Basic oscillator
+ *
+ * @param `audioInstance` an AudioContext instance
+ * @param `outputs` an array of AudioNode s to use as output
+ * @param `options` optional module settings (including frequency)
+ */
 export class Osc {
   constructor(audioInstance, outputs, options = NODE_DEFAULTS) {
     this.audioInstance = audioInstance
@@ -15,16 +22,25 @@ export class Osc {
     this.input = this.osc
   }
 
+  /**
+   * Plays the oscillator
+   */
   play() {
     this.osc.start(0)
   }
 
+  /**
+   * Stops the oscillator after the release is finnished
+   */
   stop() {
     this.osc.stop(
       this.audioInstance.currentTime + this.options.envelope.release
     )
   }
 
+  /**
+   * Stops the oscillator and then disconnects
+   */
   kill() {
     setTimeout(() => {
       this.osc.stop(0)
